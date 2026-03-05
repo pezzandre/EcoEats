@@ -16,7 +16,7 @@ touchPart.Touched:Connect(function(otherPart)
         partIsTouched = false
     end
 end)
-
+ 
 --Prova liquido letale 1 volta su 3
 local liquido = game.Workspace.Pot.Liquido
 liquido.Touched:Connect(function(otherPart)
