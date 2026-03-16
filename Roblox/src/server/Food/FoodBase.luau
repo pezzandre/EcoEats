@@ -22,6 +22,8 @@ function FoodBase.new(model, recoverableTime, spoiledTime)
 	return self
 end
 
+
+--FIXME da cambiare: non invecchia il cibo ma spunta random già scaduto o da buttare.
 function FoodBase:startAging()
 	task.spawn(function()
 		while self.currentState ~= FoodState.SPOILED do
