@@ -22,21 +22,22 @@ for _, item in ipairs(kitchenFolder:GetChildren()) do
     end
 end
 
--- 2. CARICAMENTO AUTOMATICO DELLE RICETTE
--- Legge da solo TUTTI i file presenti nella cartella "List"
-for _, module in ipairs(listFolder:GetChildren()) do
-    if module:IsA("ModuleScript") then
-        local recipeData = require(module)
-        
-        -- Controlliamo se esiste la postazione richiesta (es. "Pan")
-        local targetStations = stations[recipeData.Station]
-        
-        if targetStations then
-            -- Aggiungiamo la ricetta a tutte le padelle trovate
-            for _, stationObj in ipairs(targetStations) do
-                stationObj:addRecipe(recipeData.Name, recipeData.Ingredients)
-            end
-        else
+-- ... (parte iniziale del tuo script rimane uguale)
+
+-- 2. CARICAMENTO DA UN UNICO FILE
+local RecipesModule = require(script.Parent:WaitForChild("RecipesList"))
+
+for _, recipeData in ipairs(RecipesModule.List) do
+    -- Controlliamo se esiste la postazione richiesta
+    local targetStations = stations[recipeData.Station]
+    
+    if targetStations then
+        -- Aggiungiamo la ricetta a tutte le postazioni corrispondenti
+        for _, stationObj in ipairs(targetStations) do
+            stationObj:addRecipe(recipeData.Name, recipeData.Ingredients)
         end
+        print("📖 Ricetta caricata: " .. recipeData.Name .. " per " .. recipeData.Station)
+    else
+        warn("⚠️ Attenzione: Nessuna postazione chiamata '" .. recipeData.Station .. "' trovata per la ricetta " .. recipeData.Name)
     end
 end

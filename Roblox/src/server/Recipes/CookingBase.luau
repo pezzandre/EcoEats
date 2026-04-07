@@ -85,20 +85,36 @@ function CookingBase:checkRecipes()
         end
     end
 end
-
 function CookingBase:finishRecipe(recipeName)
-    print("✨ Recipe complete! Spawning: " .. recipeName)
-    
-    self.ingredients = {} 
-    
-    local template = foodStorage:FindFirstChild(recipeName)
-    if template then
-        local newFood = template:Clone()
-        newFood:PivotTo(self.model:GetPivot() * CFrame.new(0, 2, 0)) 
-        newFood.Parent = Workspace:WaitForChild("Food")
-    else
-        warn("❌ Errore: Non ho trovato il modello " .. recipeName .. " in ReplicatedStorage/Food")
-    end
-end
+	print("✨ Recipe complete! Spawning: " .. recipeName)
 
+	self.ingredients = {} 
+
+	local template = foodStorage:FindFirstChild(recipeName)
+	if template then
+		local newFood = template:Clone()
+
+		-- 1. Lo mettiamo nel Workspace dentro la cartella Food
+		newFood.Parent = Workspace:WaitForChild("Food")
+
+		-- 2. Calcoliamo la posizione sopra la stazione di cucina
+		local spawnPos = self.model:GetPivot().Position + Vector3.new(0, 2, 0)
+
+		if newFood:IsA("Tool") then
+			-- Se è un Tool, usiamo MoveTo e sblocchiamo l'Handle
+			newFood:MoveTo(spawnPos)
+			if newFood:FindFirstChild("Handle") then
+				newFood.Handle.Anchored = false -- FONDAMENTALE per poterlo raccogliere
+				newFood.Handle.CanTouch = true  -- FONDAMENTALE per sentire il giocatore
+			end
+		else
+			-- Se è un modello semplice, usiamo il tuo vecchio metodo
+			newFood:PivotTo(CFrame.new(spawnPos))
+		end
+
+		print("✅ " .. recipeName .. " creato! Camminaci sopra per prenderlo.")
+	else
+		warn("❌ Errore: Non ho trovato il modello/tool " .. recipeName .. " in ReplicatedStorage/Food")
+	end
+end
 return CookingBase
