@@ -17,7 +17,7 @@ eggPart.Material = Enum.Material.SmoothPlastic
 
 local egg = FoodBase.new(eggPart, 30, 60)
 
-egg:setupPickup(eggPart, "Uovo")
+egg:setupPickup(eggPart, "Egg")
 
 function egg:onStateChanged()
 	if self.currentState == FoodBase.FoodState.RECOVERABLE then

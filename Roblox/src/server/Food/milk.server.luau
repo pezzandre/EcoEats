@@ -8,7 +8,7 @@ local milkPart = foodFolder:WaitForChild("Milk")
 milkPart.Anchored = false
 
 -- Mettendo lo stesso numero (es. 40, 40), salta lo stato RECOVERABLE!
-local milk = FoodBase.new(milkPart, 40, 40)
+local milk = FoodBase.new(milkPart, 10, 10)
 
 milk:setupPickup(milkPart, "Milk")
 
@@ -17,7 +17,6 @@ function milk:onStateChanged()
     if self.currentState == FoodBase.FoodState.SPOILED then
         print("🥛 Milk is spoiled! Emitting green gas...")
         
-        -- Opzionale: facciamo diventare il cartone del latte un po' verdognolo
         milkPart.Color = Color3.fromRGB(150, 200, 150)
         
         -- Creiamo l'effetto fumo/puzza verde!

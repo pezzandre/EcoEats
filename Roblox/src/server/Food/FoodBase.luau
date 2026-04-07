@@ -81,7 +81,7 @@ function FoodBase:pickup(player)
     
     local reward = 0
     local toolName = self.baseName
-    
+
     -- Controlliamo lo stato per assegnare monete e nome
     if self.currentState == FoodState.FRESH then
         reward = 3
@@ -105,9 +105,12 @@ function FoodBase:pickup(player)
     tool.RequiresHandle = true
     tool.CanBeDropped = true
     
-    -- NUOVA RIGA: Salviamo lo stato del cibo come attributo invisibile!
+    -- Salviamo lo stato del cibo come attributo invisibile
     tool:SetAttribute("FoodState", self.currentState)
     
+    -- Salviamo il vero nome dell'ingrediente
+    tool:SetAttribute("FoodName", self.baseName)
+
     -- 1. Creiamo l'Handle (il pezzo principale che si tiene in mano)
     local handle = self.mainPart:Clone()
     handle.Name = "Handle"

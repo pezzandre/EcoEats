@@ -39,7 +39,7 @@ stemPart.Color = COLOR_FRESH_STEM
 -- Tempi: 22s e 45s
 local eggplant = FoodBase.new(eggplantModel, 22, 45)
 
-eggplant:setupPickup(mainPart, "Melanzana")
+eggplant:setupPickup(mainPart, "Eggplant")
 
 -- 4. GESTIAMO IL CAMBIO DI STATO
 function eggplant:onStateChanged()

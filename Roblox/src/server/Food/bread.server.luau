@@ -25,7 +25,7 @@ breadPart.Material = Enum.Material.Sand -- "Sand" dà un bell'effetto ruvido tip
 local bread = FoodBase.new(breadPart, 25, 50)
 
 -- Attiviamo il pickup
-bread:setupPickup(breadPart, "Pane")
+bread:setupPickup(breadPart, "Bread")
 
 -- GESTIAMO IL CAMBIO DI STATO
 function bread:onStateChanged()

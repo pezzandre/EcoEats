@@ -54,8 +54,8 @@ fruitPart.Material = Enum.Material.SmoothPlastic
 -- Tempi: 18s per ammaccarsi, 36s per marcire
 local apple = FoodBase.new(appleModel, 18, 36)
 
--- Passiamo il pezzo principale (Fruit) e il nome ("Mela")
-apple:setupPickup(fruitPart, "Mela")
+-- Passiamo il pezzo principale (Fruit) e il nome ("Apple")
+apple:setupPickup(fruitPart, "Apple")
 
 -- 4. GESTIAMO IL CAMBIO DI STATO
 function apple:onStateChanged()

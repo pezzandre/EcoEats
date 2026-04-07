@@ -49,7 +49,7 @@ herbPart.Color = COLOR_FRESH_HERB
 local carrot = FoodBase.new(carrotModel, 20, 40)
 
 -- Magia! Passiamo il pezzo principale e il nome al FoodBase
-carrot:setupPickup(mainCarrot, "Carota")
+carrot:setupPickup(mainCarrot, "Carrot")
 
 -- 4. GESTIAMO IL CAMBIO DI STATO
 function carrot:onStateChanged()
