@@ -12,7 +12,15 @@ local function inizializzaCiliegia(cherryObj)
 
     for _, child in ipairs(cherryObj:GetDescendants()) do
         if child:IsA("BasePart") then
-            table.insert(partsToColor, child)
+            
+            -- FILTRO COLORE: Mettiamo in lista solo le parti chiamate "Part" (i frutti rossi)
+            -- e ignoriamo le foglie (che in Studio sono "Union")
+            if child.Name == "Part" then
+                table.insert(partsToColor, child)
+            end
+
+            -- SALDATURA: Invece saldiamo TUTTO (foglie e frutti) al mainPart
+            -- così non cadono a pezzi quando appaiono o le raccogli
             if child ~= mainPart then
                 local weld = Instance.new("WeldConstraint")
                 weld.Part0 = mainPart
@@ -42,18 +50,20 @@ local function inizializzaCiliegia(cherryObj)
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             for _, part in ipairs(partsToColor) do part.Color = COLORS.SPOILED end
+            
             local particles = Instance.new("ParticleEmitter")
             particles.Name = "RottenStink"
             particles.Color = ColorSequence.new(Color3.fromRGB(80, 100, 50))
             particles.Size = NumberSequence.new(0.1, 0.4)
             particles.Rate = 6
             particles.Parent = mainPart
+            
             self.prompt.ActionText = "Collect Rotten Cherry"
         end
     end
 
     cherry:startAging()
-    print("🍒 Nuova ciliegia pronta!")
+    print("🍒 Nuova ciliegia pronta! Foglie protette.")
 end
 
 foodFolder.ChildAdded:Connect(function(child)

@@ -1,3 +1,4 @@
+--src/server/Coins/coinSpawner.server.luau
 local ServerStorage = game:GetService("ServerStorage")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
