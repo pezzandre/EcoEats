@@ -1,19 +1,25 @@
 -- File: server/Food/pasta.server.luau
-local Workspace = game:GetService("Workspace")
 local FoodBase = require(script.Parent:WaitForChild("FoodBase"))
+local foodFolder = workspace:WaitForChild("Food")
 
--- Troviamo la cartella e il pezzo singolo della pasta
-local foodFolder = Workspace:WaitForChild("Food")
-local pastaPart = foodFolder:WaitForChild("Pasta")
+local function inizializzaPasta(pastaPart)
+    pastaPart.Anchored = false
 
--- Opzionale: sblocchiamo la fisica per non farla fluttuare
-pastaPart.Anchored = false
+    -- La pasta non scade
+    local pasta = FoodBase.new(pastaPart, 9999, 9999)
+    pasta:setupPickup(pastaPart, "Pasta")
 
--- Creiamo l'oggetto Pasta. 
--- Passiamo pastaPart come primo argomento visto che non c'è un modello!
-local pasta = FoodBase.new(pastaPart, 9999, 9999)
+    print("🍝 Nuova pasta pronta!")
+end
 
--- Attiviamo la raccolta usando sempre pastaPart
-pasta:setupPickup(pastaPart, "Pasta")
+foodFolder.ChildAdded:Connect(function(child)
+    if child.Name == "Pasta" then
+        inizializzaPasta(child)
+    end
+end)
 
--- NESSUN startAging() -> La pasta non scadrà mai e resterà FRESH
+for _, obj in ipairs(foodFolder:GetChildren()) do
+    if obj.Name == "Pasta" then
+        inizializzaPasta(obj)
+    end
+end

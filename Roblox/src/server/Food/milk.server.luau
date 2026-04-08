@@ -1,48 +1,47 @@
 -- File: server/Food/milk.server.luau
-local Workspace = game:GetService("Workspace")
 local FoodBase = require(script.Parent:WaitForChild("FoodBase"))
+local foodFolder = workspace:WaitForChild("Food")
 
-local foodFolder = Workspace:WaitForChild("Food")
+local function inizializzaLatte(milkPart)
+    milkPart.Anchored = false
 
-local milkPart = foodFolder:WaitForChild("Milk")
-milkPart.Anchored = false
+    local milk = FoodBase.new(milkPart, 10, 10)
+    milk:setupPickup(milkPart, "Milk")
 
--- Mettendo lo stesso numero (es. 40, 40), salta lo stato RECOVERABLE!
-local milk = FoodBase.new(milkPart, 10, 10)
+    function milk:onStateChanged()
+        if self.currentState == FoodBase.FoodState.SPOILED then
+            milkPart.Color = Color3.fromRGB(150, 200, 150)
 
-milk:setupPickup(milkPart, "Milk")
+            local stinkEffect = Instance.new("ParticleEmitter")
+            stinkEffect.Name = "StinkParticles"
+            stinkEffect.Color = ColorSequence.new(Color3.fromRGB(50, 200, 50))
+            stinkEffect.Size = NumberSequence.new(0.5, 1.5)
+            stinkEffect.Rate = 12
+            stinkEffect.Speed = NumberRange.new(1, 2)
+            stinkEffect.Lifetime = NumberRange.new(1.5, 2.5)
+            stinkEffect.Transparency = NumberSequence.new({
+                NumberSequenceKeypoint.new(0, 1),
+                NumberSequenceKeypoint.new(0.2, 0.5),
+                NumberSequenceKeypoint.new(1, 1),
+            })
+            stinkEffect.Parent = milkPart
 
--- GESTIAMO IL CAMBIO DI STATO
-function milk:onStateChanged()
-    if self.currentState == FoodBase.FoodState.SPOILED then
-        print("🥛 Milk is spoiled! Emitting green gas...")
-        
-        milkPart.Color = Color3.fromRGB(150, 200, 150)
-        
-        -- Creiamo l'effetto fumo/puzza verde!
-        local stinkEffect = Instance.new("ParticleEmitter")
-        stinkEffect.Name = "StinkParticles"
-        
-        -- Colore verde tossico
-        stinkEffect.Color = ColorSequence.new(Color3.fromRGB(50, 200, 50)) 
-        
-        -- Impostazioni per farlo sembrare fumo maleodorante
-        stinkEffect.Size = NumberSequence.new(0.5, 1.5) -- Parte piccolo e si ingrandisce
-        stinkEffect.Rate = 12 -- 12 particelle al secondo
-        stinkEffect.Speed = NumberRange.new(1, 2) -- Fluttua lentamente verso l'alto
-        stinkEffect.Lifetime = NumberRange.new(1.5, 2.5) -- Quanto durano le particelle
-        stinkEffect.Transparency = NumberSequence.new({
-            NumberSequenceKeypoint.new(0, 1),   -- Inizia invisibile
-            NumberSequenceKeypoint.new(0.2, 0.5), -- Diventa mezzo visibile
-            NumberSequenceKeypoint.new(1, 1)    -- Scompare alla fine
-        })
-        
-        -- Attacchiamo l'effetto al latte
-        stinkEffect.Parent = milkPart
-        
-        self.prompt.ActionText = "Collect Spoiled Milk"
+            self.prompt.ActionText = "Collect Spoiled Milk"
+        end
     end
+
+    milk:startAging()
+    print("🥛 Nuovo latte pronto!")
 end
 
--- Avviamo il timer del decadimento
-milk:startAging()
+foodFolder.ChildAdded:Connect(function(child)
+    if child.Name == "Milk" then
+        inizializzaLatte(child)
+    end
+end)
+
+for _, obj in ipairs(foodFolder:GetChildren()) do
+    if obj.Name == "Milk" then
+        inizializzaLatte(obj)
+    end
+end

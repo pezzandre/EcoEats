@@ -1,31 +1,36 @@
 -- File: server/Food/water.server.luau
-local Workspace = game:GetService("Workspace")
 local FoodBase = require(script.Parent:WaitForChild("FoodBase"))
+local foodFolder = workspace:WaitForChild("Food")
 
-local foodFolder = Workspace:WaitForChild("Food")
-local waterObj = foodFolder:WaitForChild("Water")
+local function inizializzaAcqua(waterObj)
+    local bottlePart = waterObj:WaitForChild("Bottle")
+    local capPart    = waterObj:WaitForChild("Cap")
 
--- Troviamo i 2 pezzi esatti
-local bottlePart = waterObj:WaitForChild("Bottle") 
-local capPart = waterObj:WaitForChild("Cap")
+    waterObj.PrimaryPart = bottlePart
 
--- Impostiamo una PrimaryPart al Modello
-waterObj.PrimaryPart = bottlePart
+    local weld = Instance.new("WeldConstraint")
+    weld.Part0 = capPart
+    weld.Part1 = bottlePart
+    weld.Parent = capPart
 
--- 1. SALDIAMO I PEZZI
-local weld = Instance.new("WeldConstraint")
-weld.Part0 = capPart
-weld.Part1 = bottlePart
-weld.Parent = capPart
+    bottlePart.Anchored = false
+    capPart.Anchored    = false
 
--- 2. SBLOCCHIAMO LA FISICA DI ENTRAMBI (Importante!)
-bottlePart.Anchored = false
-capPart.Anchored = false
+    -- L'acqua non scade
+    local water = FoodBase.new(waterObj, 9999, 9999)
+    water:setupPickup(bottlePart, "Water")
 
--- Creiamo l'oggetto Water (tempi altissimi, ma non verranno mai usati)
-local water = FoodBase.new(waterObj, 9999, 9999)
+    print("💧 Nuova acqua pronta!")
+end
 
--- Attiviamo la raccolta (passiamo la PrimaryPart)
-water:setupPickup(bottlePart, "Water")
+foodFolder.ChildAdded:Connect(function(child)
+    if child.Name == "Water" then
+        inizializzaAcqua(child)
+    end
+end)
 
--- NESSUN startAging() -> L'acqua non scadrà mai e resterà sempre FRESH (Stato 1).
+for _, obj in ipairs(foodFolder:GetChildren()) do
+    if obj.Name == "Water" then
+        inizializzaAcqua(obj)
+    end
+end
