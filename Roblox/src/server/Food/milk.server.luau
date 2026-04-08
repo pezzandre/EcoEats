@@ -26,7 +26,7 @@ local function inizializzaLatte(milkPart)
             })
             stinkEffect.Parent = milkPart
 
-            self.prompt.ActionText = "Collect Spoiled Milk"
+            self.prompt.ActionText = "Collect (Spoiled)"
         end
     end
 

@@ -2,7 +2,7 @@
 local FoodBase = require(script.Parent:WaitForChild("FoodBase"))
 local foodFolder = workspace:WaitForChild("Food")
 
--- 1. FUNZIONE DI INIZIALIZZAZIONE (Il tuo vecchio codice)
+-- 1. FUNZIONE DI INIZIALIZZAZIONE
 local function inizializzaCarota(carrotModel)
     -- Troviamo i 3 pezzi (usiamo FindFirstChild per sicurezza nei cloni)
     local mainCarrot = carrotModel:WaitForChild("Carrot")
@@ -48,8 +48,8 @@ local function inizializzaCarota(carrotModel)
             mainCarrot.Color = COLOR_REC_CARROT
             headPart.Color = COLOR_REC_HERB
             herbPart.Color = COLOR_REC_HERB
-            self.prompt.ActionText = "Raccogli (Avvizzita)"
-            
+            self.prompt.ActionText = "Collect (Wilted)"
+
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             mainCarrot.Color = COLOR_SPOIL_CARROT
             headPart.Color = COLOR_SPOIL_HERB
@@ -57,7 +57,7 @@ local function inizializzaCarota(carrotModel)
             mainCarrot.Material = Enum.Material.Mud
             headPart.Material = Enum.Material.Grass
             herbPart.Material = Enum.Material.Grass
-            self.prompt.ActionText = "Raccogli (Marcia)"
+            self.prompt.ActionText = "Collect (Rotten)"
         end
     end
 

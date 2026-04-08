@@ -14,9 +14,9 @@ local function inizializzaBanana(bananaModel)
     mainPeel.Anchored = false
     tipsPeel.Anchored = false
 
-    local COLOR_FRESH      = Color3.fromRGB(255, 225, 53)
+    local COLOR_FRESH       = Color3.fromRGB(255, 225, 53)
     local COLOR_RECOVERABLE = Color3.fromRGB(139, 69, 19)
-    local COLOR_SPOILED    = Color3.fromRGB(30, 30, 30)
+    local COLOR_SPOILED     = Color3.fromRGB(30, 30, 30)
 
     mainPeel.Color = COLOR_FRESH
 
@@ -26,13 +26,13 @@ local function inizializzaBanana(bananaModel)
     function banana:onStateChanged()
         if self.currentState == FoodBase.FoodState.RECOVERABLE then
             mainPeel.Color = COLOR_RECOVERABLE
-            self.prompt.ActionText = "Raccogli (Macchiata)"
+            self.prompt.ActionText = "Collect (Spotted)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             mainPeel.Color = COLOR_SPOILED
             mainPeel.Material = Enum.Material.Grass
             tipsPeel.Material = Enum.Material.Grass
-            self.prompt.ActionText = "Raccogli (Avariata)"
+            self.prompt.ActionText = "Collect (Overripe)"
         end
     end
 

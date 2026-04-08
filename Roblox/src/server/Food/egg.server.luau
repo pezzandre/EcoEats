@@ -18,12 +18,12 @@ local function inizializzaUovo(eggPart)
         if self.currentState == FoodBase.FoodState.RECOVERABLE then
             eggPart.Color    = COLOR_REC
             eggPart.Material = Enum.Material.Plastic
-            self.prompt.ActionText = "Raccogli (In scadenza - Cuoci bene!)"
+            self.prompt.ActionText = "Collect (Expires Soon - Cook Well!)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             eggPart.Color    = COLOR_SPOIL
             eggPart.Material = Enum.Material.CorrodedMetal
-            self.prompt.ActionText = "Raccogli (Puzza/Galleggia!)"
+            self.prompt.ActionText = "Collect (Bad - Floats!)"
         end
     end
 

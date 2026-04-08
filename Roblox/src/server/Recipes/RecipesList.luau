@@ -2,7 +2,7 @@ local Recipes = {}
 
 Recipes.List = {
 	{
-		Name = "Recipe2", -- Questa è sulla Pan, quindi non confligge
+		Name = "Cake", -- Questa è sulla Pan, quindi non confligge
 		Station = "Pan",
 		Ingredients = {"Apple", "Banana"}
 	},

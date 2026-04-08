@@ -32,14 +32,14 @@ local function inizializzaMelanzana(eggplantModel)
             mainPart.Color = COLOR_REC_BODY
             stemPart.Color = COLOR_REC_STEM
             mainPart.Material = Enum.Material.Plastic
-            self.prompt.ActionText = "Raccogli (Avvizzita)"
+            self.prompt.ActionText = "Collect (Wilted)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             mainPart.Color = COLOR_SPOIL_BODY
             stemPart.Color = COLOR_SPOIL_STEM
             mainPart.Material = Enum.Material.Mud
             stemPart.Material = Enum.Material.Wood
-            self.prompt.ActionText = "Raccogli (Marcia)"
+            self.prompt.ActionText = "Collect (Rotten)"
         end
     end
 

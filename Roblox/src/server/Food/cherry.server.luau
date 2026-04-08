@@ -12,7 +12,7 @@ local function inizializzaCiliegia(cherryObj)
 
     for _, child in ipairs(cherryObj:GetDescendants()) do
         if child:IsA("BasePart") then
-            
+
             -- FILTRO COLORE: Mettiamo in lista solo le parti chiamate "Part" (i frutti rossi)
             -- e ignoriamo le foglie (che in Studio sono "Union")
             if child.Name == "Part" then
@@ -46,19 +46,19 @@ local function inizializzaCiliegia(cherryObj)
 
         elseif self.currentState == FoodBase.FoodState.RECOVERABLE then
             for _, part in ipairs(partsToColor) do part.Color = COLORS.RECOVERABLE end
-            self.prompt.ActionText = "Collect Old Cherry"
+            self.prompt.ActionText = "Collect (Old)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             for _, part in ipairs(partsToColor) do part.Color = COLORS.SPOILED end
-            
+
             local particles = Instance.new("ParticleEmitter")
             particles.Name = "RottenStink"
             particles.Color = ColorSequence.new(Color3.fromRGB(80, 100, 50))
             particles.Size = NumberSequence.new(0.1, 0.4)
             particles.Rate = 6
             particles.Parent = mainPart
-            
-            self.prompt.ActionText = "Collect Rotten Cherry"
+
+            self.prompt.ActionText = "Collect (Rotten)"
         end
     end
 

@@ -45,7 +45,7 @@ local function inizializzaMela(appleModel)
             leafPart.Color   = COLOR_REC_LEAF
             sternPart.Color  = COLOR_REC_STERN
             fruitPart.Material = Enum.Material.Plastic
-            self.prompt.ActionText = "Raccogli (Ammaccata)"
+            self.prompt.ActionText = "Collect (Bruised)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             fruitPart.Color  = COLOR_SPOIL_FRUIT
@@ -53,7 +53,7 @@ local function inizializzaMela(appleModel)
             sternPart.Color  = COLOR_SPOIL_STERN
             fruitPart.Material = Enum.Material.Mud
             leafPart.Material  = Enum.Material.Fabric
-            self.prompt.ActionText = "Raccogli (Marcia)"
+            self.prompt.ActionText = "Collect (Rotten)"
         end
     end
 

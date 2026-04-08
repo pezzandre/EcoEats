@@ -26,7 +26,7 @@ local function inizializzaFormaggio(cheeseObj)
 
         elseif self.currentState == FoodBase.FoodState.RECOVERABLE then
             cheesePart.Color = COLORS.RECOVERABLE
-            self.prompt.ActionText = "Collect Stale Cheese"
+            self.prompt.ActionText = "Collect (Stale)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             cheesePart.Color = COLORS.SPOILED
@@ -38,7 +38,7 @@ local function inizializzaFormaggio(cheeseObj)
             particles.Lifetime = NumberRange.new(1.5, 2.5)
             particles.Speed = NumberRange.new(1, 2)
             particles.Parent = cheesePart
-            self.prompt.ActionText = "Collect Moldy Cheese"
+            self.prompt.ActionText = "Collect (Moldy)"
         end
     end
 

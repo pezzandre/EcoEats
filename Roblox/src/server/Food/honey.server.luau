@@ -24,7 +24,7 @@ local function inizializzaMiele(jarModel)
 
         elseif self.currentState == FoodBase.FoodState.RECOVERABLE then
             honeyPart.Color = COLORS.RECOVERABLE
-            self.prompt.ActionText = "Collect Dark Honey"
+            self.prompt.ActionText = "Collect (Dark)"
 
         elseif self.currentState == FoodBase.FoodState.SPOILED then
             honeyPart.Color = COLORS.SPOILED
@@ -34,7 +34,7 @@ local function inizializzaMiele(jarModel)
             particles.Rate = 5
             particles.Lifetime = NumberRange.new(1, 2)
             particles.Parent = honeyPart
-            self.prompt.ActionText = "Collect Spoiled Honey"
+            self.prompt.ActionText = "Collect (Spoiled)"
         end
     end
 
