@@ -3,7 +3,6 @@ local Workspace = game:GetService("Workspace")
 local CookingBase = require(script.Parent:WaitForChild("CookingBase"))
 
 local kitchenFolder = Workspace:WaitForChild("Kitchen")
-local listFolder = script.Parent:WaitForChild("List")
 
 -- 1. TROVIAMO TUTTE LE POSTAZIONI E LE PREPARIAMO
 local stations = {}
