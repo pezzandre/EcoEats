@@ -5,23 +5,39 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 -- COSTANTI VELOCITÀ
-local NORMAL_SPEED = 16
-local SPRINT_SPEED = 32 -- 2x Speed
+local NORMAL_SPEED = 30
+local SPRINT_SPEED = 45
 
 -- COSTANTI SALTO
-local NORMAL_JUMP = 50
-local SPRINT_JUMP = 100 -- 2x Jump Power
+local NORMAL_JUMP = 75
+local SPRINT_JUMP = 100 
 
--- Funzione sicura per trovare l'Humanoid
+
+local function initializeCharacter(character)
+    -- Aspettiamo che l'Humanoid esista nel personaggio
+    local humanoid = character:WaitForChild("Humanoid")
+    
+    -- Impostiamo i valori di base IMMEDIATAMENTE
+    humanoid.UseJumpPower = true 
+    humanoid.WalkSpeed = NORMAL_SPEED
+    humanoid.JumpPower = NORMAL_JUMP
+end
+
+player.CharacterAdded:Connect(initializeCharacter)
+
+if player.Character then
+    initializeCharacter(player.Character)
+end
+
+-- ==========================================
+-- LOGICA DEL TASTO SHIFT
+-- ==========================================
+
+-- Funzione semplificata (ora deve solo trovare l'Humanoid, senza impostare valori)
 local function getHumanoid()
     local character = player.Character
     if character then
-        local humanoid = character:FindFirstChild("Humanoid")
-        if humanoid then
-            -- Ci assicuriamo che il sistema usi JumpPower e non JumpHeight
-            humanoid.UseJumpPower = true 
-            return humanoid
-        end
+        return character:FindFirstChild("Humanoid")
     end
     return nil
 end

@@ -1,4 +1,6 @@
 -- File: server/Food/FoodBase.luau
+local ServerStorage = game:GetService("ServerStorage")
+
 local FoodBase = {}
 FoodBase.__index = FoodBase
 
@@ -18,13 +20,15 @@ function FoodBase.new(model, recoverableTime, spoiledTime)
     
     self.currentState = FoodState.FRESH
     self.age = 0
+    self.isAliveInWorkspace = true -- Flag per sapere se è ancora per terra
     
     return self
 end
 
 function FoodBase:startAging()
     task.spawn(function()
-        while self.currentState ~= FoodState.SPOILED do
+        -- Il loop si ferma se diventa marcio O se viene raccolto
+        while self.currentState ~= FoodState.SPOILED and self.isAliveInWorkspace do
             task.wait(1)
             self.age += 1
             self:checkExpiration()
@@ -51,15 +55,13 @@ function FoodBase:onStateChanged()
 end
 
 -- ==========================================
--- NUOVO: SISTEMA DI RACCOLTA UNIVERSALE
+-- SISTEMA DI RACCOLTA UNIVERSALE
 -- ==========================================
 
--- Chiama questa funzione dallo script del cibo per attivare la raccolta
 function FoodBase:setupPickup(mainPart, baseName)
     self.mainPart = mainPart
     self.baseName = baseName or self.model.Name
     
-    -- Creiamo il pulsante "E"
     self.prompt = Instance.new("ProximityPrompt")
     self.prompt.ActionText = "Collect " .. self.baseName
     self.prompt.ObjectText = self.baseName
@@ -67,21 +69,21 @@ function FoodBase:setupPickup(mainPart, baseName)
     self.prompt.MaxActivationDistance = 8
     self.prompt.Parent = self.mainPart
     
-    -- Quando premi "E", avvia la funzione pickup qui sotto
     self.prompt.Triggered:Connect(function(player)
         self:pickup(player)
     end)
 end
 
--- La logica per raccogliere, dare monete e creare il Tool
 function FoodBase:pickup(player)
+    -- Spegniamo il timer di terra
+    self.isAliveInWorkspace = false 
+    
     local leaderstats = player:FindFirstChild("leaderstats")
     local coins = leaderstats and leaderstats:FindFirstChild("Coins")
     
     local reward = 0
     local toolName = self.baseName
 
-    -- Controlliamo lo stato per assegnare monete e nome
     if self.currentState == FoodState.FRESH then
         reward = 3
         toolName = self.baseName .. " Fresh"
@@ -89,58 +91,96 @@ function FoodBase:pickup(player)
         reward = 2
         toolName = self.baseName .. " Bruised"
     elseif self.currentState == FoodState.SPOILED then
-        reward = 1
+        reward = -1 
         toolName = self.baseName .. " Spoiled"
     end
     
-    if coins then 
+    if coins and reward ~= 0 then 
         coins.Value += reward 
-        print("Collected " .. toolName .. "! +" .. reward .. " Coins.")
+        print("🥬 " .. toolName .. " raccolto! Transazione: " .. reward)
     end
     
-    -- Creiamo il Tool
     local tool = Instance.new("Tool")
     tool.Name = toolName
     tool.RequiresHandle = true
     tool.CanBeDropped = true
     
-    -- Salviamo lo stato del cibo come attributo invisibile
+    -- Impostiamo gli attributi iniziali per la GUI e la logica
     tool:SetAttribute("FoodState", self.currentState)
-    
-    -- Salviamo il vero nome dell'ingrediente
     tool:SetAttribute("FoodName", self.baseName)
-
-    -- 1. Creiamo l'Handle (il pezzo principale che si tiene in mano)
-    local handle = self.mainPart:Clone()
-    handle.Name = "Handle"
-    handle:ClearAllChildren() -- Rimuove vecchi pulsanti o saldature
-    handle.Anchored = false
-    handle.Parent = tool
+    tool:SetAttribute("SpoiledTime", self.spoiledTime) 
+    tool:SetAttribute("CurrentAge", self.age)
     
-    -- 2. Troviamo TUTTI gli altri pezzi del cibo e li saldiamo all'Handle in automatico!
-    for _, part in ipairs(self.model:GetDescendants()) do
-        if part:IsA("BasePart") and part ~= self.mainPart then
-            local partClone = part:Clone()
-            partClone:ClearAllChildren()
-            partClone.Anchored = false
-            
-            local weld = Instance.new("WeldConstraint")
-            weld.Part0 = handle
-            weld.Part1 = partClone
-            weld.Parent = handle
-            
-            partClone.Parent = tool
+    -- ==========================================
+    -- SPOSTIAMO E SALDIAMO IN MODO SICURO
+    -- ==========================================
+    if self.prompt then self.prompt:Destroy() end
+    
+    self.mainPart.Name = "Handle"
+    self.mainPart.Anchored = false
+    self.mainPart.Parent = tool
+    
+    local partsToKeep = {}
+    for _, child in ipairs(self.model:GetDescendants()) do
+        if child:IsA("BasePart") and child ~= self.mainPart then
+            table.insert(partsToKeep, child)
         end
     end
     
-    -- Mettiamo il Tool nello zaino del giocatore
+    for _, part in ipairs(partsToKeep) do
+        part.Parent = tool
+        part.Anchored = false
+        part.CanCollide = false -- Evita che il cibo urti i muri mentre lo tieni in mano
+        part.Massless = true
+        
+        -- Nuova saldatura sicura
+        local newWeld = Instance.new("WeldConstraint")
+        newWeld.Part0 = self.mainPart
+        newWeld.Part1 = part
+        newWeld.Parent = self.mainPart
+    end
+    
+    self.model:Destroy()
+    
     local backpack = player:FindFirstChild("Backpack")
     if backpack then
         tool.Parent = backpack
     end
+
+    -- ==========================================
+    -- TIMER DELLO ZAINO (Con aggiornamento GUI)
+    -- ==========================================
+    local toolAge = self.age
     
-    -- Distruggiamo il modello per terra
-    self.model:Destroy()
+    task.spawn(function()
+        while self.currentState ~= FoodState.SPOILED and tool.Parent do
+            task.wait(1)
+            
+            toolAge += 0.4 
+            
+            -- Aggiorniamo l'attributo ogni secondo per la GUI
+            tool:SetAttribute("CurrentAge", toolAge)
+            
+            local previousState = self.currentState
+            if toolAge >= self.spoiledTime then
+                self.currentState = FoodState.SPOILED
+            elseif toolAge >= self.recoverableTime then
+                self.currentState = FoodState.RECOVERABLE
+            end
+            
+            -- Se cambia stato nello zaino/in mano, aggiorna colore e nome
+            if self.currentState ~= previousState then
+                tool:SetAttribute("FoodState", self.currentState)
+                if self.currentState == FoodState.RECOVERABLE then
+                    tool.Name = self.baseName .. " Bruised"
+                elseif self.currentState == FoodState.SPOILED then
+                    tool.Name = self.baseName .. " Spoiled"
+                end
+                
+                self:onStateChanged()
+            end
+        end
+    end)
 end
 
 return FoodBase
