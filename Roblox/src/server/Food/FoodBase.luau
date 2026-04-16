@@ -91,7 +91,7 @@ function FoodBase:pickup(player)
         reward = 2
         toolName = self.baseName .. " Bruised"
     elseif self.currentState == FoodState.SPOILED then
-        reward = -1
+        reward = 1
         toolName = self.baseName .. " Spoiled"
     end
 
@@ -100,10 +100,13 @@ function FoodBase:pickup(player)
         print("🥬 " .. toolName .. " raccolto! Transazione: " .. reward)
     end
 
-    -- Distruggi il prompt prima di tutto
     if self.prompt then
-        self.prompt:Destroy()
-        self.prompt = nil
+        -- Se è un oggetto vero, lo distruggiamo visivamente
+        if typeof(self.prompt) == "Instance" then
+            self.prompt:Destroy()
+        end
+
+        self.prompt = {}
     end
 
     -- ==========================================
@@ -121,8 +124,6 @@ function FoodBase:pickup(player)
     -- ==========================================
     -- 2. PREPARA LE PARTI PRIMA DI MUOVERLE
     -- ==========================================
-
-    -- Raccogli tutte le parti secondarie
     local partsToKeep = {}
     for _, child in ipairs(self.model:GetDescendants()) do
         if child:IsA("BasePart") and child ~= self.mainPart then
@@ -130,8 +131,6 @@ function FoodBase:pickup(player)
         end
     end
 
-    -- Elimina TUTTI i weld/constraint esistenti nel modello
-    -- per evitare riferimenti rotti dopo lo spostamento
     for _, child in ipairs(self.model:GetDescendants()) do
         if child:IsA("WeldConstraint") or child:IsA("Weld") or child:IsA("Motor6D") then
             child:Destroy()
@@ -143,7 +142,7 @@ function FoodBase:pickup(player)
     -- ==========================================
     self.mainPart.Name = "Handle"
     self.mainPart.Anchored = false
-    self.mainPart.Parent = tool -- Handle entra nel tool per primo ✅
+    self.mainPart.Parent = tool 
 
     -- ==========================================
     -- 4. SPOSTA LE PARTI SECONDARIE E SALDA
@@ -155,13 +154,11 @@ function FoodBase:pickup(player)
         part.Parent = tool
 
         local weld = Instance.new("WeldConstraint")
-        weld.Part0 = self.mainPart -- Handle è già nel tool, weld valido ✅
+        weld.Part0 = self.mainPart 
         weld.Part1 = part
         weld.Parent = self.mainPart
     end
 
-    -- Distruggi il modello ormai svuotato
-    -- SOLO se è diverso dalla mainPart (es. pasta = singola parte, non un modello)
     if self.model ~= self.mainPart then
         self.model:Destroy()
     end
@@ -184,8 +181,7 @@ function FoodBase:pickup(player)
             task.wait(1)
 
             toolAge += 0.4
-
-            -- Aggiorniamo l'attributo ogni secondo per la GUI
+            
             tool:SetAttribute("CurrentAge", toolAge)
 
             local previousState = self.currentState
@@ -195,7 +191,6 @@ function FoodBase:pickup(player)
                 self.currentState = FoodState.RECOVERABLE
             end
 
-            -- Se cambia stato nello zaino/in mano, aggiorna colore e nome
             if self.currentState ~= previousState then
                 tool:SetAttribute("FoodState", self.currentState)
                 if self.currentState == FoodState.RECOVERABLE then
