@@ -1,34 +1,38 @@
---Saluto giocatore
-local function playerAdded(player)
-    print("Un nuovo giocatore è arrivato! Benvenuto ", player)
+-- Riferimenti agli oggetti nel Workspace
+local liquido = game.Workspace.Pot.Liquido
+local liquidoNorm = game.Workspace.Pot1.Liquido -- Torna normale
+local liquidoSmall = game.Workspace.Pot2.Liquido -- Diventa piccolo
+
+--- FUNZIONE GENERALE PER CAMBIARE SCALA
+-- Usiamo una funzione per non ripetere lo stesso codice 3 volte
+local function cambiaScala(humanoid, valore)
+	humanoid.BodyWidthScale.Value = valore
+	humanoid.BodyDepthScale.Value = valore 
+	humanoid.BodyHeightScale.Value = valore 
+	humanoid.HeadScale.Value = valore 
 end
-game.Players.PlayerAdded:Connect(playerAdded)
 
---Prova individua parti toccate
-local touchPart = game.Workspace.TouchPart
-local partIsTouched = false
-touchPart.Touched:Connect(function(otherPart)
-    if partIsTouched == false then
-        partIsTouched = true
-        print(otherPart.Name)
-
-        task.wait(2)
-        partIsTouched = false
-    end
+-- 1. LIQUIDO ORIGINALE (Ingrandisce - Scala 2)
+liquido.Touched:Connect(function(otherPart)
+	local humanoid = otherPart.Parent:FindFirstChild("Humanoid")
+	if humanoid then
+		cambiaScala(humanoid, 2)
+	end
 end)
 
---Prova liquido letale 1 volta su 3
-local liquido = game.Workspace.Pot.Liquido
-liquido.Touched:Connect(function(otherPart)
+-- 2. LIQUIDO POT1 (Normalizza - Scala 1)
+liquidoNorm.Touched:Connect(function(otherPart)
+	local humanoid = otherPart.Parent:FindFirstChild("Humanoid")
+	if humanoid then
+		cambiaScala(humanoid, 1)
+	end
+end)
 
-    local humanoid = otherPart.Parent:FindFirstChild("Humanoid")
-    if humanoid then
-        humanoid.BodyWidthScale.Value = 2
-        humanoid.BodyDepthScale.Value = 2 
-        humanoid.BodyHeightScale.Value = 2 
-        humanoid.HeadScale.Value = 2 
-        humanoid.JumpPower = 50
-        humanoid.WalkSpeed = 20
-        task.wait(5)
-    end
+-- 3. LIQUIDO POT2 (Rimpicciolisce - Scala 0.5)
+-- Se l'originale raddoppia (x2), questo dimezza (0.5)
+liquidoSmall.Touched:Connect(function(otherPart)
+	local humanoid = otherPart.Parent:FindFirstChild("Humanoid")
+	if humanoid then
+		cambiaScala(humanoid, 0.5)
+	end
 end)
