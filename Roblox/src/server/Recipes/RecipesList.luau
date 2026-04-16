@@ -20,6 +20,16 @@ Recipes.List = {
 		Name = "Omelette", -- Cambia il nome!
 		Station = "KitchenBoard",
 		Ingredients = {"Egg", "Eggplant"}
+	},
+	{
+		Name = "FrenchFries", -- Cambia il nome!
+		Station = "KitchenBoard",
+		Ingredients = {"Potato"}
+	},
+	{
+		Name = "FrenchFriesCooked", -- Cambia il nome!
+		Station = "Fryer",
+		Ingredients = {"OliveOil", "Potato"}
 	}
 }
 
