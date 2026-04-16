@@ -50,13 +50,13 @@ local function updateTimerDisplay()
         
         -- Cambiamo colore e testo in base al tempo!
         if remaining <= 0 then
-            timerLabel.Text = "☠️ AVARIATO!"
+            timerLabel.Text = "☠️ SPOILED!"
             timerLabel.TextColor3 = Color3.fromRGB(255, 50, 50) -- Rosso
         elseif remaining <= 15 then
-            timerLabel.Text = "⏳ Scade in: " .. remaining .. "s"
+            timerLabel.Text = "⏳ Spoil in: " .. remaining .. "s"
             timerLabel.TextColor3 = Color3.fromRGB(255, 150, 0) -- Arancione (Sta scadendo)
         else
-            timerLabel.Text = "⏳ Scade in: " .. remaining .. "s"
+            timerLabel.Text = "⏳ Expire in: " .. remaining .. "s"
             timerLabel.TextColor3 = Color3.fromRGB(50, 255, 50) -- Verde (Fresco)
         end
     else
