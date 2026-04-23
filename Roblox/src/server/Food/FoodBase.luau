@@ -116,10 +116,11 @@ function FoodBase:pickup(player)
     tool.Name = toolName
     tool.RequiresHandle = true
     tool.CanBeDropped = true
-    tool:SetAttribute("FoodState", self.currentState)
-    tool:SetAttribute("FoodName", self.baseName)
-    tool:SetAttribute("SpoiledTime", self.spoiledTime)
-    tool:SetAttribute("CurrentAge", self.age)
+	tool:SetAttribute("FoodState", self.currentState)
+	tool:SetAttribute("FoodName", self.baseName)
+	tool:SetAttribute("SpoiledTime", self.spoiledTime)
+	tool:SetAttribute("RecoverableTime", self.recoverableTime) -- ✅ aggiungi questa
+	tool:SetAttribute("CurrentAge", self.age)
 
     -- ==========================================
     -- 2. PREPARA LE PARTI PRIMA DI MUOVERLE

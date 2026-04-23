@@ -11,7 +11,7 @@ local coinTemplate = modelsFolder:WaitForChild("Coin")
 local coinAreas = Workspace:WaitForChild("CoinAreas")
 local activeCoinFolder = coinAreas:WaitForChild("ActiveCoins")
 
-local spawnInterval = 5
+local spawnInterval = 20
 
 task.spawn(function()
     while true do

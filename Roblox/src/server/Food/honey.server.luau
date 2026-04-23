@@ -16,7 +16,7 @@ local function inizializzaMiele(jarModel)
     }
 
     local honey = FoodBase.new(jarModel, 30, 60)
-    honey:setupPickup(handlePart, "Honey Jar")
+    honey:setupPickup(handlePart, "HoneyJar")
 
     function honey:onStateChanged()
         if self.currentState == FoodBase.FoodState.FRESH then

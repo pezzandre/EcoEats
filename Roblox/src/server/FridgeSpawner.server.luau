@@ -8,9 +8,9 @@ foodFolder.Name = "Food"
 local foodTemplates = ServerStorage:FindFirstChild("FoodTemplates") or ReplicatedStorage:FindFirstChild("FoodTemplates")
 local spawnZone = Workspace:WaitForChild("FridgeSpawnZone")
 
-local MAX_FOOD_IN_FRIDGE = 30
-local SPAWN_INTERVAL = 5
-local RESET_WAIT_TIME = 30 -- Il tempo di attesa dopo che il frigo è pieno
+local MAX_FOOD_IN_FRIDGE = 80
+local SPAWN_INTERVAL = 1
+local RESET_WAIT_TIME = 3 -- Il tempo di attesa dopo che il frigo è pieno
 
 print("🚀 Spawner pronto. Flusso: Spawn graduale -> Wait 20s -> Reset.")
 

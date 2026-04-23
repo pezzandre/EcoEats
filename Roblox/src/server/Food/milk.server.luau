@@ -5,7 +5,7 @@ local foodFolder = workspace:WaitForChild("Food")
 local function inizializzaLatte(milkPart)
     milkPart.Anchored = false
 
-    local milk = FoodBase.new(milkPart, 10, 10)
+    local milk = FoodBase.new(milkPart, 50, 100)
     milk:setupPickup(milkPart, "Milk")
 
     function milk:onStateChanged()
