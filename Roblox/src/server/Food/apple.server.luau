@@ -36,7 +36,7 @@ local function inizializzaMela(appleModel)
     sternPart.Color = COLOR_FRESH_STERN
     fruitPart.Material = Enum.Material.SmoothPlastic
 
-    local apple = FoodBase.new(appleModel, 18, 36)
+    local apple = FoodBase.new(appleModel, 180, 360)
     apple:setupPickup(fruitPart, "Apple")
 
     function apple:onStateChanged()

@@ -11,7 +11,7 @@ local function inizializzaRiso(riceObj)
         ricePart.Anchored = false
     end
 
-    local rice = FoodBase.new(riceObj, 4, 8)
+    local rice = FoodBase.new(riceObj, 9999, 9999)
     rice:setupPickup(ricePart, "Rice")
 
     function rice:onStateChanged()

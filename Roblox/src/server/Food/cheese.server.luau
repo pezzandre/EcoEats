@@ -17,7 +17,7 @@ local function inizializzaFormaggio(cheeseObj)
         SPOILED     = Color3.fromRGB(100, 150, 100),
     }
 
-    local cheese = FoodBase.new(cheeseObj, 45, 90)
+    local cheese = FoodBase.new(cheeseObj, 180, 360)
     cheese:setupPickup(cheesePart, "Cheese")
 
     function cheese:onStateChanged()

@@ -39,7 +39,7 @@ local function inizializzaCarota(carrotModel)
     herbPart.Color = COLOR_FRESH_HERB
 
     -- CREAZIONE OGGETTO
-    local carrot = FoodBase.new(carrotModel, 20, 40)
+    local carrot = FoodBase.new(carrotModel, 280, 540)
     carrot:setupPickup(mainCarrot, "Carrot")
 
     -- CAMBIO STATO

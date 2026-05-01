@@ -25,7 +25,7 @@ local function inizializzaOlioOliva(oilObj)
     end
 
     -- L'olio non scade
-    local oliveOil = FoodBase.new(oilObj, 9999, 9999)
+    local oliveOil = FoodBase.new(oilObj, 500, 900)
     oliveOil:setupPickup(mainPart, "OliveOil")
 
     if oliveOil.prompt then

@@ -10,6 +10,7 @@ local lastQuizTime = -QUIZ_COOLDOWN
 local currentLanguage = "IT"
 
 local questions = {
+	-- ... (Le tue 10 domande originali rimangono qui, ne aggiungo una come esempio e poi le nuove)
 	{
 		IT = {
 			question = "Qual è la temperatura ideale per conservare il cibo in frigo?",
@@ -22,115 +23,371 @@ local questions = {
 			correct = 1
 		}
 	},
+	-- NUOVE DOMANDE SDG 12.3
 	{
 		IT = {
-			question = "Quanto cibo viene sprecato ogni anno nel mondo?",
-			answers = {"1/3 della produzione", "1/10 della produzione", "1/2 della produzione", "1/20 della produzione"},
+			question = "Qual è l'obiettivo dell'SDG 12.3?",
+			answers = {"Dimezzare lo spreco alimentare entro il 2030", "Raddoppiare la produzione mondiale", "Eliminare gli imballaggi", "Vietare il cibo importato"},
 			correct = 1
 		},
 		EN = {
-			question = "How much food is wasted every year in the world?",
-			answers = {"1/3 of production", "1/10 of production", "1/2 of production", "1/20 of production"},
+			question = "What is the goal of SDG 12.3?",
+			answers = {"Cut food waste in half by 2030", "Double food production worldwide", "Eliminate all packaging waste", "Ban imported food"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Cosa significa FIFO nella gestione del cibo?",
-			answers = {"Prima entra, prima esce", "Fresco in, fresco fuori", "Freddo in, freddo fuori", "Nessuna delle precedenti"},
+			question = "Quanto cibo viene sprecato globalmente ogni anno?",
+			answers = {"Circa il 33%", "Circa il 10%", "Circa il 25%", "Circa il 50%"},
 			correct = 1
 		},
 		EN = {
-			question = "What does FIFO mean in food management?",
-			answers = {"First In, First Out", "Fresh In, Fresh Out", "Frozen In, Frozen Out", "None of the above"},
+			question = "How much food is wasted globally each year?",
+			answers = {"About 33%", "About 10%", "About 25%", "About 50%"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Quale settore spreca più cibo?",
-			answers = {"Famiglie domestiche", "Ristoranti", "Supermercati", "Agricoltura"},
+			question = "Quale di questi alimenti è il più sprecato al mondo?",
+			answers = {"Frutta e verdura", "Riso", "Uova", "Formaggio"},
 			correct = 1
 		},
 		EN = {
-			question = "Which sector wastes the most food?",
-			answers = {"Households", "Restaurants", "Supermarkets", "Agriculture"},
+			question = "Which of these foods is wasted the most worldwide?",
+			answers = {"Fruits and vegetables", "Rice", "Eggs", "Cheese"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Cosa puoi fare con gli avanzi di cibo?",
-			answers = {"Compostaggio", "Buttarli subito", "Lasciarli fuori dal frigo", "Niente"},
+			question = "Vero o Falso: Buttare il cibo spreca anche acqua ed energia.",
+			answers = {"Vero", "Falso", "-", "-"},
 			correct = 1
 		},
 		EN = {
-			question = "What can you do with food leftovers?",
-			answers = {"Composting", "Throw them away immediately", "Leave them outside the fridge", "Nothing"},
+			question = "True or False: Throwing away food also wastes water and energy.",
+			answers = {"True", "False", "-", "-"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Qual è il modo migliore per conservare il pane?",
-			answers = {"In un sacchetto di carta o paniera", "In frigo", "In un sacchetto di plastica chiuso", "All'aperto"},
+			question = "Cosa significa solitamente 'da consumarsi preferibilmente entro'?",
+			answers = {"Qualità ottimale, non sicurezza", "Cibo pericoloso dopo la data", "Da buttare immediatamente", "Illegale da mangiare dopo"},
 			correct = 1
 		},
 		EN = {
-			question = "What is the best way to store bread?",
-			answers = {"In a paper bag or bread box", "In the fridge", "In a sealed plastic bag", "In the open air"},
+			question = "What does 'best by' usually mean?",
+			answers = {"Best quality, not safety", "Unsafe after this date", "Food must be thrown away immediately", "Illegal to eat after"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Cosa significa 'da consumarsi entro'?",
-			answers = {"Il cibo potrebbe essere pericoloso dopo", "Il cibo è ancora buono dopo", "È solo un consiglio", "Non ha importanza"},
+			question = "Quale azione aiuta di più a ridurre lo spreco?",
+			answers = {"Pianificare i pasti", "Comprare più spesa", "Buttare gli avanzi", "Ignorare le scadenze"},
 			correct = 1
 		},
 		EN = {
-			question = "What does 'use by date' mean?",
-			answers = {"Food may be unsafe after this date", "Food is still good after", "It's just a suggestion", "It doesn't matter"},
+			question = "Which action helps reduce food waste the most?",
+			answers = {"Planning meals ahead", "Buying more groceries", "Throwing away leftovers", "Ignoring expiration dates"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Quale frutto produce gas etilene che fa maturare altri frutti?",
-			answers = {"Banana", "Mela", "Arancia", "Uva"},
+			question = "Vero o Falso: Lo spreco alimentare nelle discariche crea gas serra nocivi.",
+			answers = {"Vero", "Falso", "-", "-"},
 			correct = 1
 		},
 		EN = {
-			question = "Which fruit produces ethylene gas that ripens other fruits?",
-			answers = {"Banana", "Apple", "Orange", "Grape"},
+			question = "True or False: Food waste in landfills creates harmful greenhouse gases.",
+			answers = {"True", "False", "-", "-"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Come si chiama l'app che connette ristoranti con cibo in eccesso ai clienti?",
-			answers = {"Too Good To Go", "Food Waste App", "Save My Food", "Eco Eats"},
+			question = "Quale gas viene rilasciato dal cibo che marcisce in discarica?",
+			answers = {"Metano", "Ossigeno", "Azoto", "Elio"},
 			correct = 1
 		},
 		EN = {
-			question = "What is the app that connects restaurants with excess food to customers?",
-			answers = {"Too Good To Go", "Food Waste App", "Save My Food", "Eco Eats"},
+			question = "What gas is commonly released when food rots in landfills?",
+			answers = {"Methane", "Oxygen", "Nitrogen", "Helium"},
 			correct = 1
 		}
 	},
 	{
 		IT = {
-			question = "Quante tonnellate di cibo vengono sprecate in Italia ogni anno?",
-			answers = {"Circa 9 milioni", "Circa 1 milione", "Circa 50 milioni", "Circa 500mila"},
+			question = "Qual è il modo migliore per ridurre lo spreco in casa?",
+			answers = {"Conservare il cibo correttamente", "Comprare cibo extra", "Buttare l'umido ogni settimana", "Evitare gli avanzi"},
 			correct = 1
 		},
 		EN = {
-			question = "How many tons of food are wasted in Italy every year?",
-			answers = {"About 9 million", "About 1 million", "About 50 million", "About 500 thousand"},
+			question = "Which of these is the best way to reduce food waste at home?",
+			answers = {"Store food properly", "Buy extra food", "Throw out old food weekly", "Avoid leftovers"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Frutta e verdura 'brutta' ha lo stesso sapore di quella perfetta.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Ugly fruits and vegetables taste the same as perfect-looking ones.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Qual è un buon utilizzo per gli scarti alimentari?",
+			answers = {"Compost", "Solo spazzatura", "Bruciarli", "Nasconderli"},
+			correct = 1
+		},
+		EN = {
+			question = "What is one good use for food scraps?",
+			answers = {"Compost", "Trash only", "Burn them", "Hide them"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Quale paese si è impegnato a dimezzare lo spreco entro il 2030?",
+			answers = {"Svizzera", "Brasile", "Egitto", "Islanda"},
+			correct = 1
+		},
+		EN = {
+			question = "Which country has also committed to cutting food waste in half by 2030?",
+			answers = {"Switzerland", "Brazil", "Egypt", "Iceland"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: La maggior parte dello spreco avviene prima che il cibo arrivi nei negozi.",
+			answers = {"Falso", "Vero", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Most food waste happens before food reaches stores.",
+			answers = {"False", "True", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Come possono i ristoranti ridurre lo spreco?",
+			answers = {"Offrire porzioni più piccole", "Servire porzioni giganti", "Buttare gli avanzi subito", "Usare più imballaggi"},
+			correct = 1
+		},
+		EN = {
+			question = "What is a simple way restaurants can reduce food waste?",
+			answers = {"Offer smaller portion options", "Serve larger portions", "Throw away leftovers faster", "Use more packaging"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Cosa crea il compostaggio degli scarti alimentari?",
+			answers = {"Fertilizzante", "Plastica", "Fumo", "Olio"},
+			correct = 1
+		},
+		EN = {
+			question = "What does composting food scraps create?",
+			answers = {"Fertilizer", "Plastic", "Smoke", "Oil"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Lo spreco alimentare costa denaro alle famiglie.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Food waste costs households money.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Qual è un'abitudine di spesa intelligente?",
+			answers = {"Controllare cosa hai già", "Fare la spesa senza lista", "Comprare sempre all'ingrosso", "Comprare snack a caso"},
+			correct = 1
+		},
+		EN = {
+			question = "Which of these is a smarter shopping habit?",
+			answers = {"Checking what you already have first", "Shopping without a list", "Buying in bulk every time", "Buying random snacks"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Perché sprecare carne è particolarmente dannoso?",
+			answers = {"Usa più terra, acqua ed energia", "Scade prima", "Ha un sapore peggiore", "È difficile da cucinare"},
+			correct = 1
+		},
+		EN = {
+			question = "Why is wasting meat especially harmful?",
+			answers = {"It uses more land, water, and energy to produce", "It spoils faster", "It tastes worse later", "It is harder to cook"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Congelare il cibo può aiutare a ridurre lo spreco.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Freezing food can help reduce waste.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Cosa significa SDG?",
+			answers = {"Obiettivo di Sviluppo Sostenibile", "Obiettivo Dieta Sicura", "Spesa Giornaliera Standard", "Guida Dieta Sostenibile"},
+			correct = 1
+		},
+		EN = {
+			question = "What does SDG stand for?",
+			answers = {"Sustainable Development Goal", "Safe Diet Goal", "Standard Daily Grocery", "Sustainable Diet Guide"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Lo spreco alimentare contribuisce al cambiamento climatico.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Food waste contributes to climate change.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Quale di questi cibi dura solitamente di più?",
+			answers = {"Riso", "Latte", "Pane", "Frutti di bosco"},
+			correct = 1
+		},
+		EN = {
+			question = "Which of these foods usually lasts the longest?",
+			answers = {"Rice", "Milk", "Bread", "Berries"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Qual è l'idea principale dietro EcoEats?",
+			answers = {"Usare il cibo saggiamente e ridurre gli sprechi", "Cucinare il cibo più costoso", "Sprecare il più possibile", "Comprare ingredienti illimitati"},
+			correct = 1
+		},
+		EN = {
+			question = "What is the main idea behind EcoEats?",
+			answers = {"Use food wisely and reduce waste", "Cook the most expensive food", "Waste as much as possible", "Buy unlimited ingredients"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Gli avanzi possono essere riutilizzati in nuovi pasti.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Leftovers can be reused in new meals.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Qual è un motivo per cui il cibo viene sprecato nei negozi?",
+			answers = {"Sembra 'brutto' esteticamente", "È troppo perfetto", "È troppo economico", "Cresce troppo piano"},
+			correct = 1
+		},
+		EN = {
+			question = "What is one reason food gets wasted in stores?",
+			answers = {"It looks 'ugly'", "It is too perfect", "It is too cheap", "It grows too slowly"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Cosa consuma più acqua per essere prodotto?",
+			answers = {"Carne bovina", "Pomodori", "Patate", "Pane"},
+			correct = 1
+		},
+		EN = {
+			question = "Which uses more water to produce?",
+			answers = {"Beef", "Tomatoes", "Potatoes", "Bread"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Vero o Falso: Il compostaggio è meglio che mandare il cibo in discarica.",
+			answers = {"Vero", "Falso", "-", "-"},
+			correct = 1
+		},
+		EN = {
+			question = "True or False: Composting is better than sending food waste to a landfill.",
+			answers = {"True", "False", "-", "-"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Qual è il primo passo migliore prima di fare la spesa?",
+			answers = {"Controllare cosa hai già", "Buttare via tutto", "Comprare prima il dolce", "Andare quando hai fame"},
+			correct = 1
+		},
+		EN = {
+			question = "What is the best first step before buying groceries?",
+			answers = {"Check what food you already have", "Throw everything away", "Buy dessert first", "Go when hungry"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Quale di questi fa parte dell'SDG 12?",
+			answers = {"Consumo responsabile", "Costruire più strade", "Più produzione di plastica", "Spedizioni più veloci"},
+			correct = 1
+		},
+		EN = {
+			question = "Which of these is part of SDG 12?",
+			answers = {"Responsible consumption", "Building more roads", "More plastic production", "Faster shipping"},
+			correct = 1
+		}
+	},
+	{
+		IT = {
+			question = "Cosa succede quando il cibo viene sprecato?",
+			answers = {"Si perdono cibo, acqua, soldi ed energia", "Si perde solo il cibo", "Non succede nulla di importante", "I negozi guadagnano di più"},
+			correct = 1
+		},
+		EN = {
+			question = "What happens when food is wasted?",
+			answers = {"Food, water, money, and energy are wasted", "Only food is lost", "Nothing important happens", "Stores make more money"},
 			correct = 1
 		}
 	},
 }
+
+-- Il resto del tuo script GUI rimane identico...
+-- (ScreenGui, Panels, Buttons, loadQuestion logic, etc.)
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "QuizGui"

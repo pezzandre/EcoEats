@@ -11,7 +11,7 @@ local function inizializzaPane(breadPart)
     breadPart.Color    = COLOR_FRESH
     breadPart.Material = Enum.Material.Sand
 
-    local bread = FoodBase.new(breadPart, 25, 50)
+    local bread = FoodBase.new(breadPart, 150, 300)
     bread:setupPickup(breadPart, "Bread")
 
     function bread:onStateChanged()

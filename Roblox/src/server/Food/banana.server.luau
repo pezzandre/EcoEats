@@ -20,7 +20,7 @@ local function inizializzaBanana(bananaModel)
 
     mainPeel.Color = COLOR_FRESH
 
-    local banana = FoodBase.new(bananaModel, 15, 30)
+    local banana = FoodBase.new(bananaModel, 90, 180)
     banana:setupPickup(mainPeel, "Banana")
 
     function banana:onStateChanged()

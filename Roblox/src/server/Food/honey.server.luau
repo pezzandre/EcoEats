@@ -15,7 +15,7 @@ local function inizializzaMiele(jarModel)
         SPOILED     = Color3.fromRGB(50, 80, 50),
     }
 
-    local honey = FoodBase.new(jarModel, 30, 60)
+    local honey = FoodBase.new(jarModel, 9999, 9999)
     honey:setupPickup(handlePart, "HoneyJar")
 
     function honey:onStateChanged()

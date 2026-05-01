@@ -11,7 +11,7 @@ local function inizializzaUovo(eggPart)
     eggPart.Color    = COLOR_FRESH
     eggPart.Material = Enum.Material.SmoothPlastic
 
-    local egg = FoodBase.new(eggPart, 30, 60)
+    local egg = FoodBase.new(eggPart, 240, 480)
     egg:setupPickup(eggPart, "Egg")
 
     function egg:onStateChanged()

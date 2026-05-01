@@ -33,7 +33,7 @@ local function inizializzaPomodoro(tomatoObj)
         SPOILED     = Color3.fromRGB(80, 100, 60),
     }
 
-    local tomato = FoodBase.new(tomatoObj, 40, 80)
+    local tomato = FoodBase.new(tomatoObj, 120, 240)
     tomato:setupPickup(mainPart, "Tomato")
 
     if tomato.prompt then

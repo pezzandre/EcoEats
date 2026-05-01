@@ -23,7 +23,7 @@ local function inizializzaFarina(flourObj)
     end
 
     -- La farina non scade
-    local flour = FoodBase.new(flourObj, 9999, 9999)
+    local flour = FoodBase.new(flourObj, 350, 720)
     flour:setupPickup(mainPart, "Flour")
 
     print("🌾 Nuova farina pronta!")

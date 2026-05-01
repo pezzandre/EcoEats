@@ -24,7 +24,7 @@ local function inizializzaMelanzana(eggplantModel)
     mainPart.Color = COLOR_FRESH_BODY
     stemPart.Color = COLOR_FRESH_STEM
 
-    local eggplant = FoodBase.new(eggplantModel, 22, 45)
+    local eggplant = FoodBase.new(eggplantModel, 150, 300)
     eggplant:setupPickup(mainPart, "Eggplant")
 
     function eggplant:onStateChanged()

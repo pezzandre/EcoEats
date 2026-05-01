@@ -37,7 +37,7 @@ local function inizializzaCiliegia(cherryObj)
         SPOILED     = Color3.fromRGB(60, 80, 50),
     }
 
-    local cherry = FoodBase.new(cherryObj, 35, 70)
+    local cherry = FoodBase.new(cherryObj, 60, 120)
     cherry:setupPickup(mainPart, "Cherry")
 
     function cherry:onStateChanged()

@@ -32,7 +32,7 @@ local function inizializzaCioccolato(chocolateObj)
     end
 
     -- Il cioccolato non scade
-    local chocolate = FoodBase.new(chocolateObj, 9999, 9999)
+    local chocolate = FoodBase.new(chocolateObj, 600, 1000)
     chocolate:setupPickup(mainPart, "Chocolate")
 
     if chocolate.prompt then

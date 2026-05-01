@@ -17,7 +17,7 @@ local function inizializzaPatata(potatoObj)
         SPOILED     = Color3.fromRGB(50, 60, 40),
     }
 
-    local potato = FoodBase.new(potatoObj, 50, 100)
+    local potato = FoodBase.new(potatoObj, 300, 600)
     potato:setupPickup(potatoPart, "Potato")
 
     function potato:onStateChanged()
