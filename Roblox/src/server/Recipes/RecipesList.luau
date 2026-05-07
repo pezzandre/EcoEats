@@ -1,89 +1,112 @@
 local Recipes = {}
-
 Recipes.List = {
+	-- KitchenBoard
 	{
-		Name = "Omelette", -- Questa è sulla Pan
-		Station = "Pan",
-		Ingredients = {"Egg", "OliveOil"}
-	},
-	{
-		Name = "CutApple", -- Cambia il nome!
+		Name = "CutApple",
 		Station = "KitchenBoard",
 		Ingredients = {"Apple", "Apple"}
 	},
 	{
-		Name = "SlicedTomato", -- Cambia il nome!
+		Name = "SlicedTomato",
 		Station = "KitchenBoard",
 		Ingredients = {"Tomato", "Tomato"}
 	},
 	{
-		Name = "Cookies", -- Cambia il nome!
+		Name = "FrenchFries",
 		Station = "KitchenBoard",
-		Ingredients = {"Bread", "Water"}
+		Ingredients = {"Potato", "Potato"}
 	},
 	{
-		Name = "Omelette", -- Cambia il nome!
+		Name = "Salad",
 		Station = "KitchenBoard",
-		Ingredients = {"Egg", "Eggplant"}
+		Ingredients = {"Tomato", "Carrot", "OliveOil"}
 	},
 	{
-		Name = "FrenchFries", -- Cambia il nome!
+		Name = "Burger",
 		Station = "KitchenBoard",
-		Ingredients = {"Potato"}
+		Ingredients = {"Bread", "Pork", "Cheese"}
 	},
 	{
-		Name = "FrenchFriesCooked", -- Cambia il nome!
+		Name = "FishBurger", 
+		Station = "KitchenBoard",
+		Ingredients = {"Bread", "Fish", "Cheese"}
+	},
+
+	-- Pan
+	{
+		Name = "Omelette",
+		Station = "Pan",
+		Ingredients = {"Egg", "OliveOil"}
+	},
+
+	-- Fryer
+	{
+		Name = "FrenchFriesCooked",
 		Station = "Fryer",
-		Ingredients = {"OliveOil", "FrenchFries"}
+		Ingredients = {"FrenchFries", "OliveOil"}
 	},
 	{
-		Name = "MilkShakeChocolate", -- Cambia il nome!
+		Name = "ChickenNuggets",
+		Station = "Fryer",
+		Ingredients = {"chicken_nugget", "OliveOil"}
+	},
+
+	-- Mixer
+	{
+		Name = "MilkShakeChocolate",
 		Station = "Mixer",
 		Ingredients = {"Chocolate", "Milk"}
 	},
 	{
-		Name = "MilkShakeApple", -- Cambia il nome!
+		Name = "MilkShakeApple",
 		Station = "Mixer",
 		Ingredients = {"Apple", "Milk"}
 	},
 	{
-		Name = "MilkShakeCherry", -- Cambia il nome!
+		Name = "MilkShakeCherry",
 		Station = "Mixer",
 		Ingredients = {"Cherry", "Milk"}
 	},
 	{
-		Name = "MilkShakeBanana", -- Cambia il nome!
+		Name = "MilkShakeBanana",
 		Station = "Mixer",
 		Ingredients = {"Banana", "Milk"}
 	},
 	{
-		Name = "SpaghettiPomodoro", -- Cambia il nome!
-		Station = "Pot",
-		Ingredients = {"Pasta", "Tomato","Water","OliveOil"}
-	},
-	{
-		Name = "CookieDough", -- Cambia il nome!
+		Name = "CookieDough",
 		Station = "Mixer",
-		Ingredients = {"Flour", "Chocolate","Sugar","Egg","Milk"}
+		Ingredients = {"Flour", "Chocolate", "Sugar", "Egg", "Milk"}
 	},
 	{
-		Name = "Cookies", -- Cambia il nome!
+		Name = "CakeDough",  -- impasto prima di cuocere
+		Station = "Mixer",
+		Ingredients = {"Flour", "Egg", "Milk", "Sugar", "HoneyJar"}
+	},
+
+	-- Microwave / Oven
+	{
+		Name = "Cookies",
 		Station = "Microwave",
 		Ingredients = {"CookieDough"}
 	},
 	{
-		Name = "Salad", -- Cambia il nome!
+		Name = "Cake",
 		Station = "Microwave",
-		Ingredients = {"CookieDough"}
+		Ingredients = {"CakeDough"}
 	},
+
+	-- Pot
 	{
-		Name = "Burger", -- Cambia il nome!
+		Name = "SpaghettiPomodoro",
 		Station = "Pot",
-		Ingredients = {"Milk"}
+		Ingredients = {"Pasta", "Tomato", "Water", "OliveOil"}
 	},
 
-
-
+	-- Assemblaggi finali (KitchenBoard)
+	{
+		Name = "FastFood",
+		Station = "KitchenBoard",
+		Ingredients = {"Burger", "FrenchFriesCooked"}
+	},
 }
-
 return Recipes
